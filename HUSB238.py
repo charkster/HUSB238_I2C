@@ -6,6 +6,15 @@ class HUSB238:
         self.i2c      = i2c
         self.slave_id = 0x08
         self.debug    = debug
+
+    def write_byte_data(self, address=0x00, data=0x00):
+#        self.i2c.writeto_mem(self.slave_id, address, bytearray([data & 0xFF])) # MicroPython
+        self.i2c.write_byte_data(self.slave_id, address, data)                  # Raspberry Pi smbus
+    
+    def read_byte_data(self, address=0x00):
+#        int_read_byte = list(self.i2c.readfrom_mem(self.slave_id, address, 1))[0] # MicroPython
+        int_read_byte = self.i2c.read_byte_data(self.slave_id, address)            # Raspberry Pi smbus
+        return int_read_byte # int value
     
     class bitfield_type:
         def __init__(self, NAME       = "",
@@ -233,15 +242,6 @@ class HUSB238:
                           _SRC_18V_DETECT, _SRC_18V_CURRENT,
                           _SRC_20V_DETECT, _SRC_20V_CURRENT,
                           _PDO_SELECT,     _COMMAND_FUNC ]
-
-    def write_byte_data(self, address=0x00, data=0x00):
-#        self.i2c.writeto_mem(self.slave_id, address, bytearray([data & 0xFF])) # MicroPython
-        self.i2c.write_byte_data(self.slave_id, address, data) # Raspberry Pi smbus
-    
-    def read_byte_data(self, address=0x00):
-#        int_read_byte = list(self.i2c.readfrom_mem(self.slave_id, address, 1))[0] # MicroPython
-        int_read_byte = self.i2c.read_byte_data(self.slave_id, address) # Raspberry Pi smbus
-        return int_read_byte # int value
     
     def i2c_bf_read(self, bit_field):
         try:
