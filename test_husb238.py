@@ -1,4 +1,4 @@
-from HUSB238 import HUSB238 # this needs to be modified for either Raspberry Pi or MicroPython operation
+from HUSB238 import HUSB238 # HUSB238.py needs to be modified for either Raspberry Pi or MicroPython operation
 import smbus                # Raspberry Pi
 i2c = smbus.SMBus(1)        # Raspberry Pi
 
